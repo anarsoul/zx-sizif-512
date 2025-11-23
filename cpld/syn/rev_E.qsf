@@ -102,6 +102,7 @@ set_location_assignment PIN_14 -to kd[3]
 set_location_assignment PIN_15 -to kd[2]
 set_location_assignment PIN_16 -to kd[1]
 set_location_assignment PIN_18 -to kd[0]
+set_location_assignment PIN_21 -to uart_rts
 set_location_assignment PIN_22 -to bus0
 set_location_assignment PIN_23 -to bus1
 set_location_assignment PIN_24 -to n_romcs
@@ -157,6 +158,8 @@ set_location_assignment PIN_87 -to ay_bdir
 set_location_assignment PIN_88 -to snd_r
 set_location_assignment PIN_89 -to ay_clk
 set_location_assignment PIN_91 -to clk28
+set_location_assignment PIN_93 -to uart_rx
+set_location_assignment PIN_97 -to uart_tx
 set_location_assignment PIN_98 -to shift_clk
 set_location_assignment PIN_101 -to vd[3]
 set_location_assignment PIN_102 -to vd[4]
@@ -243,6 +246,7 @@ set_global_assignment -name SYSTEMVERILOG_FILE ../rtl/cpu.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../rtl/mem.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../rtl/common.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../rtl/ay.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../rtl/uart.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ../rtl/top.sv
 set_global_assignment -name VERILOG_INCLUDE_FILE ../rtl/util.vh
 set_global_assignment -name SDC_FILE clocks.sdc

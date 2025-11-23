@@ -83,6 +83,11 @@ module mem(
     input ay_dout_active,
     input ports_dout_active,
     input [7:0] ports_dout
+`ifdef REV_E
+    ,
+    input uart_dout_active,
+    input [7:0] uart_dout
+`endif
 );
 
 wire romreq = bus.mreq && !bus.rfsh && bus.a[15:14] == 2'b00 &&
@@ -213,6 +218,9 @@ assign xd[7:0] =
     div_dout_active                ? div_dout :
     up_dout_active                 ? up_dout :
     ports_dout_active              ? ports_dout :
+`ifdef REV_E
+    uart_dout_active               ? uart_dout :
+`endif
     xd_precharge                   ? 8'hFF :
                                      {8{1'bz}} ;
 

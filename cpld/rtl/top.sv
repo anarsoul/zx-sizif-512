@@ -80,6 +80,13 @@ module zx_ula (
     output plus3_dwr,
     output plus3_mtr
 
+`ifdef REV_E
+    ,
+    input uart_rx,
+    output uart_tx,
+    output uart_rts
+`endif
+
 `ifndef REV_C
     ,
     input ps2_clk,
@@ -574,6 +581,24 @@ divmmc divmmc0(
     .ext_wait_cycle2(div_ext_wait_cycle2)
 );
 
+`ifdef REV_E
+wire uart_dout_active;
+wire [7:0] uart_dout;
+
+/* UART */
+uart uart0(
+    .rst_n(n_rstcpu_in),
+    .clk28(clk28),
+    .bus(bus),
+    .en(1'b1),
+    .d_out(uart_dout),
+    .d_out_active(uart_dout_active),
+
+    .uart_rx(uart_rx),
+    .uart_tx(uart_tx),
+    .uart_rts(uart_rts)
+);
+`endif
 
 /* ULAPLUS */
 wire up_dout_active;
@@ -651,6 +676,11 @@ mem mem0(
     .ay_dout_active(ay_dout_active),
     .ports_dout_active(ports_dout_active),
     .ports_dout(ports_dout)
+`ifdef REV_E
+    ,
+    .uart_dout(uart_dout),
+    .uart_dout_active(uart_dout_active)
+`endif
 );
 
 
