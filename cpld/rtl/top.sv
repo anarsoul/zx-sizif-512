@@ -108,6 +108,7 @@ wire up_active;
 wire [2:0] ram_page128;
 wire ay_ext_wait_cycle2;
 wire div_ext_wait_cycle2;
+wire uart_ext_wait_cycle2;
 wire mem_wait;
 wire sd_indication;
 wire bright_boost;
@@ -361,7 +362,7 @@ cpu cpu0(
     .turbo(turbo),
     .fastforward(fastforward),
     .hold(mem_wait),
-    .ext_wait_cycle2(ay_ext_wait_cycle2 | div_ext_wait_cycle2),
+    .ext_wait_cycle2(ay_ext_wait_cycle2 | div_ext_wait_cycle2 | uart_ext_wait_cycle2),
 
     .n_rstcpu_out(n_rstcpu_out),
     .clkcpu(clkcpu),
@@ -596,7 +597,8 @@ uart uart0(
 
     .uart_rx(uart_rx),
     .uart_tx(uart_tx),
-    .uart_rts(uart_rts)
+    .uart_rts(uart_rts),
+    .ext_wait_cycle2(uart_ext_wait_cycle2)
 );
 `endif
 

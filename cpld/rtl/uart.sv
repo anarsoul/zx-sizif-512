@@ -11,7 +11,8 @@ module uart(
 
     input uart_rx,
     output reg uart_tx,
-    output reg uart_rts
+    output reg uart_rts,
+    output ext_wait_cycle2
 );
 
 localparam CLK_HZ = 28000000;
@@ -42,6 +43,8 @@ reg [7:0] rx_data = 8'h00;
 wire uart_tx_rd = en && bus.iorq && bus.rd && bus.a == 16'h133B;
 wire uart_tx_wr = en && bus.iorq && bus.wr && bus.a == 16'h133B;
 wire uart_rx_rd = en && bus.iorq && bus.rd && bus.a == 16'h143B;
+
+assign ext_wait_cycle2 = uart_tx_rd || uart_tx_wr || uart_rx_rd;
 
 always @(posedge clk28 or negedge rst_n) begin
     if (!rst_n) begin
